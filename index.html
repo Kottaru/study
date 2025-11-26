@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusFlow — Planner de Produtividade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">⚡</div>
+      <div class="title">
+        <h1>FocusFlow</h1>
+        <p>Organize seu dia com estilo</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="themeToggle" class="btn ghost">🌙 Tema</button>
+      <button id="exportBtn" class="btn ghost">⬇️ Exportar</button>
+      <button id="importBtn" class="btn ghost">⬆️ Importar</button>
+      <input type="file" id="importFile" accept="application/json" hidden />
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero glass">
+      <div class="hero-text">
+        <h2>Concentre-se no que importa</h2>
+        <p>Crie tarefas, defina prioridades, arraste entre colunas e veja seu progresso.</p>
+        <div class="hero-cta">
+          <a href="#create" class="btn primary">+ Nova tarefa</a>
+          <button id="clearAll" class="btn danger">🗑️ Limpar tudo</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="create" class="form glass">
+      <h3>Adicionar tarefa</h3>
+      <div class="grid">
+        <div class="field">
+          <label>Título</label>
+          <input type="text" id="taskTitle" placeholder="Ex: Estudar matemática" />
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <input type="text" id="taskCategory" placeholder="Ex: Estudos" />
+        </div>
+        <div class="field">
+          <label>Prazo</label>
+          <input type="date" id="taskDue" />
+        </div>
+        <div class="field">
+          <label>Prioridade</label>
+          <select id="taskPriority">
+            <option value="baixa">Baixa</option>
+            <option value="media">Média</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="taskDesc" rows="3" placeholder="Detalhes, links, passos..."></textarea>
+      </div>
+      <button id="addTask" class="btn primary">Adicionar</button>
+    </section>
+
+    <section class="tools glass">
+      <div class="field">
+        <label>Buscar</label>
+        <input type="text" id="search" placeholder="Filtrar por título, categoria ou descrição" />
+      </div>
+      <div class="field">
+        <label>Filtrar por prioridade</label>
+        <select id="filterPriority">
+          <option value="todas">Todas</option>
+          <option value="alta">Alta</option>
+          <option value="media">Média</option>
+          <option value="baixa">Baixa</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="kanban">
+      <div class="column">
+        <div class="column-header">
+          <h3>Hoje</h3>
+          <span class="count" id="count-today">0</span>
+        </div>
+        <div class="dropzone" id="col-today"></div>
+      </div>
+
+      <div class="column">
+        <div class="column-header">
+          <h3>Semana</h3>
+          <span class="count" id="count-week">0</span>
+        </div>
+        <div class="dropzone" id="col-week"></div>
+      </div>
+
+      <div class="column">
+        <div class="column-header">
+          <h3>Feito</h3>
+          <span class="count" id="count-done">0</span>
+        </div>
+        <div class="dropzone" id="col-done"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Feito para atrair e ajudar pessoas — design moderno, performance e utilidade.</p>
+  </footer>
+
+  <template id="taskTemplate">
+    <article class="card" draggable="true">
+      <div class="card-top">
+        <span class="pill category"></span>
+        <span class="pill priority"></span>
+      </div>
+      <h4 class="title"></h4>
+      <p class="desc">
